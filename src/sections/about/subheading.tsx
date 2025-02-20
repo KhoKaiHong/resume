@@ -1,37 +1,70 @@
-import { motion } from "motion/react";
+import { motion, useInView } from "motion/react";
+import { useState, useEffect, useRef } from "react";
 
 const sentenceVariants = {
-  hidden: {},
-  visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
+  hidden: {
+    transition: { staggerChildren: 0.05, staggerDirection: -1 },
+  },
+  visible: { transition: { staggerChildren: 0.05 } },
 };
 
 const letterVariants = {
-  hidden: { opacity: 0, display: "none" },
+  hidden: {
+    opacity: 0,
+    display: "none",
+    transition: { duration: 0 },
+  },
   visible: {
     opacity: 1,
-    transition: { opacity: { duration: 0 } },
     display: "inline-block",
-    width: "fit-content",
+    transition: { duration: 0 },
   },
 };
 
+const subheadings = [
+  "Full Stack Software Engineer".replace(/ /g, "\u00A0"),
+  "Computer Science Graduate".replace(/ /g, "\u00A0"),
+  "Technology Enthusiast".replace(/ /g, "\u00A0"),
+  "Problem Solver".replace(/ /g, "\u00A0"),
+];
+
 export function Subheading() {
-  const subheadings = [
-    "Full Stack Software Engineer".replace(/ /g, "\u00A0"),
-    "Computer Science Graduate".replace(/ /g, "\u00A0"),
-    "Technology Enthusiast".replace(/ /g, "\u00A0"),
-    "Problem Solver".replace(/ /g, "\u00A0"),
-  ];
+  const ref = useRef(null);
+  const [displayedIndex, setDisplayedIndex] = useState(0);
+  const [wordVisible, setWordVisible] = useState(false);
+  const isInView = useInView(ref);
+  const [animateState, setAnimateState] = useState("visible");
+
+  useEffect(() => {
+    if (!isInView || !wordVisible) return;
+
+    const timeout = setTimeout(() => {
+      setAnimateState("hidden");
+      setWordVisible(false);
+    }, 2000);
+
+    return () => clearTimeout(timeout);
+  }, [isInView, wordVisible]);
 
   return (
-    <div className="flex gap-x-2 items-center">
+    <div className="flex gap-x-2 items-center h-10" ref={ref}>
       <motion.h2
         variants={sentenceVariants}
         initial="hidden"
-        whileInView="visible"
-        className="text-accent font-medium text-5xl"
+        animate={animateState}
+        onAnimationComplete={() => {
+          if (animateState === "hidden") {
+            setDisplayedIndex((current) =>
+              current === subheadings.length - 1 ? 0 : current + 1
+            );
+            setAnimateState("visible");
+          } else {
+            setWordVisible(true);
+          }
+        }}
+        className="font-medium sm:text-lg"
       >
-        {job.split("").map((char, index) => (
+        {subheadings[displayedIndex].split("").map((char, index) => (
           <motion.span key={index} variants={letterVariants}>
             {char}
           </motion.span>
@@ -49,7 +82,7 @@ export function Subheading() {
           repeat: Infinity,
           repeatType: "reverse",
         }}
-        className="inline-block rounded-sm w-[4px] h-10 bg-accent"
+        className="inline-block rounded-sm w-[2px] bg-foreground h-4 sm:h-5"
       ></motion.span>
     </div>
   );

@@ -8,7 +8,7 @@ import { useRef } from "react";
 
 function Section({ children }: { children: React.ReactNode }) {
   return (
-    <section className="h-full w-full snap-start overflow-hidden">
+    <section className="h-full w-full snap-start overflow-hidden place-content-center">
       {children}
     </section>
   );

@@ -2,16 +2,15 @@ import { motion } from "motion/react";
 
 const sentenceVariants = {
   hidden: {},
-  visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
+  visible: { transition: { staggerChildren: 0.1 } },
 };
 
 const letterVariants = {
   hidden: { opacity: 0, display: "none" },
   visible: {
     opacity: 1,
-    transition: { opacity: { duration: 0 } },
+    transition: { duration: 0 },
     display: "inline-block",
-    width: "fit-content",
   },
 };
 
@@ -24,7 +23,7 @@ export function Name() {
         variants={sentenceVariants}
         initial="hidden"
         whileInView="visible"
-        className="text-accent font-medium text-5xl"
+        className="text-accent font-medium text-3xl sm:text-5xl"
       >
         {name.split("").map((char, index) => (
           <motion.span key={index} variants={letterVariants}>
@@ -44,7 +43,7 @@ export function Name() {
           repeat: Infinity,
           repeatType: "reverse",
         }}
-        className="inline-block rounded-sm w-[4px] h-10 bg-accent"
+        className="inline-block rounded-sm w-[4px] bg-accent h-7 sm:h-10"
       ></motion.span>
     </div>
   );
