@@ -1,7 +1,8 @@
 "use client";
 
 import About from "@/sections/about/$about";
-import Experience from "./sections/experience/$experience";
+import Experience from "@/sections/experience/$experience";
+import Skills from "@/sections/skills/$skills";
 
 import { motion, useScroll, useSpring } from "motion/react";
 import { useRef } from "react";
@@ -32,6 +33,9 @@ function App() {
       </Section>
       <Section>
         <Experience />
+      </Section>
+      <Section>
+        <Skills />
       </Section>
       <motion.div
         className="fixed left-0 right-0 h-2 w-full bg-accent bottom-2 origin-left"

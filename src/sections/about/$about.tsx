@@ -9,6 +9,7 @@ import { Name } from "@/sections/about/name";
 import { Download } from "@/sections/about/download";
 import { Description } from "@/sections/about/description";
 import { Subheading } from "@/sections/about/subheading";
+import { ChevronDown } from "@/components/chevrondown";
 import { useState } from "react";
 import { motion } from "motion/react";
 
@@ -89,7 +90,25 @@ function About() {
           </AnimatedButton>
         </div>
       </div>
-      <div className="flex items-center justify-center">Scroll down to view more</div>
+      <motion.div
+        className="flex items-center justify-center gap-x-2"
+        initial={{
+          y: 0,
+          opacity: 0.7,
+        }}
+        animate={{
+          y: 10,
+          opacity: 1,
+        }}
+        transition={{
+          duration: 1,
+          repeat: Infinity,
+          repeatType: "reverse",
+        }}
+      >
+        Scroll down to view more
+        <ChevronDown />
+      </motion.div>
     </div>
   );
 }
