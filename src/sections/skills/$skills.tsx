@@ -2,7 +2,7 @@
 
 import { ChevronUp } from "@/components/chevronup";
 import { Title } from "@/sections/skills/title";
-import { Timeline } from "@/sections/experience/timeline";
+import { LogoTable } from "@/sections/skills/logoTable";
 import { motion } from "motion/react";
 
 function Skills() {
@@ -12,7 +12,7 @@ function Skills() {
         <Title />
       </div>
       <div className="flex flex-col w-full">
-        <Timeline />
+        <LogoTable />
       </div>
       <motion.div
         className="flex items-center justify-center gap-x-2"
